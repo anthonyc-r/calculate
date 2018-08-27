@@ -1,0 +1,4 @@
+Install requires tools-make and gnustep-{base, gui}.
+To build and install just run:
+make
+make install
