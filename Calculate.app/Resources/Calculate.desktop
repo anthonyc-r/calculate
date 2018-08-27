@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Categories=X-GNUstep;
+Name=Calculate
+Comment=No description avaliable!
+Exec=/usr/local/GNUstep/System/Tools/openapp Calculate
+FilePattern=Calculate.app;Calculate;

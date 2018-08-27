@@ -1,0 +1,28 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    AppController = {
+	Actions = (
+	    "showPrefPanel:"
+	);
+	Outlets = (
+	);
+	Super = NSObject;
+    };
+    CalculateManager = {
+	Actions = (
+	    "didPressButton:"
+	);
+	Outlets = (
+	    displayField
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "didPressButton:",
+	    "orderFrontFontPanel:",
+	    "showPrefPanel:"
+	);
+	Super = NSObject;
+    };
+}
