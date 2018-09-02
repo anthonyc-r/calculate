@@ -80,7 +80,7 @@ typedef NSInteger CalculatorError;
 }
 - (id) init;
 - (void) activateButton: (CalculatorButton)button;
-- (NSString*) getDisplay;
+- (NSNumber*) getDisplay;
 @end
 
 #endif // _CALCULATOR_H_

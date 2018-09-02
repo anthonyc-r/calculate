@@ -36,7 +36,18 @@
     return self;
   }
   calc = [[Calculator alloc] init];
+  stringAttributes = [[NSDictionary alloc] initWithObjectsAndKeys: 
+    [NSFont systemFontOfSize: 40], NSFontAttributeName, nil];
+  numberFormatter = [[NSNumberFormatter alloc] init];
+  [displayField setAlignment: NSTextAlignmentLeft];
   return self;
+}
+
+- (void) deinit
+{
+  [calc release];
+  [stringAttributes release];
+  [numberFormatter release];
 }
 
 - (void) didPressButton: (id)sender
@@ -47,7 +58,10 @@
   }
   CalculatorButton button = [sender tag];
   [calc activateButton: button];
-  [displayField setStringValue: [calc getDisplay]];
+  NSString *string = [numberFormatter stringFromNumber: [calc getDisplay]];
+  NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString: string
+    attributes: stringAttributes];
+  [displayField setAttributedStringValue: attributedString];
 }
 
 @end

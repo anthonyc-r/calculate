@@ -30,7 +30,10 @@
 {
   id displayField;
   Calculator* calc;
+  NSDictionary *stringAttributes;
+  NSNumberFormatter *numberFormatter;
 }
 - (id) init;
+- (void) deinit;
 - (void) didPressButton: (id)sender;
 @end

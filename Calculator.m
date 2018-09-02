@@ -155,9 +155,9 @@
   }
 }
 
-- (NSString*) getDisplay
+- (NSNumber*) getDisplay
 {
-  return [NSString stringWithFormat: @"%f", scratch];
+  return [NSNumber numberWithDouble: scratch];
 }
 
 - (void) activateButton: (CalculatorButton) button

@@ -17,6 +17,13 @@
 	);
 	Super = NSObject;
     };
+    Calculator = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSObject;
+    };
     FirstResponder = {
 	Actions = (
 	    "didPressButton:",
