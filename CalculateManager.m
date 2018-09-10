@@ -36,10 +36,13 @@
     return self;
   }
   calc = [[Calculator alloc] init];
+  NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+  [style autorelease];
+  [style setAlignment: NSRightTextAlignment];
   stringAttributes = [[NSDictionary alloc] initWithObjectsAndKeys: 
-    [NSFont systemFontOfSize: 40], NSFontAttributeName, nil];
+    [NSFont systemFontOfSize: 40], NSFontAttributeName, 
+    style, NSParagraphStyleAttributeName, nil];
   numberFormatter = [[NSNumberFormatter alloc] init];
-  [displayField setAlignment: NSTextAlignmentLeft];
   return self;
 }
 
@@ -48,6 +51,11 @@
   [calc release];
   [stringAttributes release];
   [numberFormatter release];
+}
+
+- (void) awakeFromNib
+{
+  [displayField setDelegate: self];
 }
 
 - (void) didPressButton: (id)sender
@@ -62,6 +70,13 @@
   NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString: string
     attributes: stringAttributes];
   [displayField setAttributedStringValue: attributedString];
+}
+
+
+- (BOOL) control: (NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor
+{
+  NSLog(@"TextShouldBeginEditing...");
+  return false;
 }
 
 @end

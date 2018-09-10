@@ -26,7 +26,7 @@
 #include "Calculator.h"
 
 
-@interface CalculateManager : NSObject
+@interface CalculateManager : NSObject <NSTextFieldDelegate>
 {
   id displayField;
   Calculator* calc;
@@ -35,5 +35,6 @@
 }
 - (id) init;
 - (void) deinit;
+- (void) awakeFromNib;
 - (void) didPressButton: (id)sender;
 @end
