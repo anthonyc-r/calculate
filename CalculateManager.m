@@ -43,6 +43,8 @@
     [NSFont systemFontOfSize: 40], NSFontAttributeName, 
     style, NSParagraphStyleAttributeName, nil];
   numberFormatter = [[NSNumberFormatter alloc] init];
+  [numberFormatter setMaximumFractionDigits: 2];
+  [numberFormatter setMinimumIntegerDigits: 1];
   return self;
 }
 
