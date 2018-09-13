@@ -66,17 +66,71 @@
   }
   CalculatorButton button = [sender tag];
   [calc activateButton: button];
-  NSString *string = [numberFormatter stringFromNumber: [calc getDisplay]];
-  NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString: string
-    attributes: stringAttributes];
-  [displayField setAttributedStringValue: attributedString];
+  [self updateDisplayField];
 }
 
 
 - (BOOL) control: (NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor
 {
   NSLog(@"TextShouldBeginEditing...");
+  NSLog(@"%@", [control stringValue]);
+  return true;
+}
+
+- (BOOL) control: (NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
+{
+  NSLog(@"Should end editing");
+  [calc activateButton: CalculatorButtonEqual];
+  [self updateDisplayField];
   return false;
+}
+
+- (BOOL) control: (NSControl *)control isValidObject: (id)object
+{
+  NSLog(@"isValid? %@", object);
+  return false;
+}
+
+
+- (void) controlTextDidChange: (NSNotification *)notification
+{
+  NSString *val = [displayField stringValue];
+  char c = [val characterAtIndex: [val length] - 1];
+  char numVal = c - NUM_START_POINT;
+  NSLog(@"Control txt changed!! char: %c", numVal);
+  if (numVal >= 0 && numVal <= 9) 
+  {
+    NSLog(@"Activating as number.");
+    [calc activateButton: (CalculatorButton)numVal];
+  }
+  else
+  {
+    switch (c) {
+      case '+':
+        [calc activateButton: CalculatorButtonPlus];
+        break;
+      case '-':
+        [calc activateButton: CalculatorButtonMinus];
+        break;
+      case '/':
+        [calc activateButton: CalculatorButtonDivide];
+        break;
+      case '*':
+        [calc activateButton: CalculatorButtonTimes];
+        break;
+    }
+  }
+  [displayField setStringValue: [val substringToIndex: [val length] - 1]];
+  [self updateDisplayField];
+}
+
+- (void) updateDisplayField
+{
+  NSString *string = [numberFormatter stringFromNumber: [calc getDisplay]];
+  NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString: string
+    attributes: stringAttributes];
+  [displayField setAttributedStringValue: attributedString];
+  [displayField becomeFirstResponder];
 }
 
 @end

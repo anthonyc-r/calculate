@@ -25,6 +25,7 @@
 #include <AppKit/AppKit.h>
 #include "Calculator.h"
 
+#define NUM_START_POINT 48
 
 @interface CalculateManager : NSObject <NSTextFieldDelegate>
 {
@@ -37,4 +38,5 @@
 - (void) deinit;
 - (void) awakeFromNib;
 - (void) didPressButton: (id)sender;
+- (void) updateDisplayField;
 @end
