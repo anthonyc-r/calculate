@@ -25,6 +25,7 @@
 #include <AppKit/AppKit.h>
 #include "CalculateManager.h"
 #include "Calculator.h"
+#include "math.h"
 
 @implementation CalculateManager
 
@@ -126,13 +127,63 @@
   [self updateDisplayField];
 }
 
+- (NSDictionary*) stringAttributesForFont: (NSFont*)font ofSize: (int)fontSize
+{
+  NSDictionary *ret;
+  NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+  [style autorelease];
+  [style setAlignment: NSRightTextAlignment];
+  ret = [[NSDictionary alloc] initWithObjectsAndKeys: style, NSParagraphStyleAttributeName,
+    [NSFont fontWithName: [font fontName] size: fontSize], NSFontAttributeName, nil];
+  [ret autorelease];
+  return ret;
+}
+
+- (int) largestFontSizeWithinBounds: (NSSize)bounds forString: (NSString *)string font: (NSFont*) font
+{
+  int maxFontSize, minFontSize, lastFontSize, currentFontSize, targetDelta;
+  NSSize size;
+  maxFontSize = MAX_FONT_SIZE;
+  minFontSize = MIN_FONT_SIZE;
+  targetDelta = 1;
+  lastFontSize = minFontSize;
+  currentFontSize = minFontSize + (maxFontSize - minFontSize) / 2;
+  while (abs(currentFontSize - lastFontSize) > targetDelta)
+  {
+    lastFontSize = currentFontSize;
+    size = [string sizeWithAttributes: [self stringAttributesForFont: font ofSize: currentFontSize]];
+    if (size.width < (bounds.width - DISPLAY_WIDTH_OFFSET) && size.height < bounds.height)
+    {
+      minFontSize = currentFontSize;
+      currentFontSize = currentFontSize + (maxFontSize - currentFontSize) / 2; 
+    }
+    else
+    {
+      maxFontSize = currentFontSize;
+      currentFontSize = minFontSize + (currentFontSize - minFontSize) / 2;
+    }
+  }
+  return currentFontSize;
+}
+
 - (void) updateDisplayField
 {
+  NSFont *font = [NSFont systemFontOfSize: 50];
   NSString *string = [numberFormatter stringFromNumber: [calc getDisplay]];
+  int fontSize = [self largestFontSizeWithinBounds: [displayField bounds].size forString: string font: font];
+  font = [NSFont fontWithName: @"Courier" size: fontSize];
+  NSLog(@"Calculated font size: %d. Using font: %@", fontSize, font);
+  NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+  [style autorelease];
+  [style setAlignment: NSRightTextAlignment];
+  stringAttributes = [[NSDictionary alloc] initWithObjectsAndKeys: 
+    style, NSParagraphStyleAttributeName, nil];
   NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString: string
     attributes: stringAttributes];
   [displayField setAttributedStringValue: attributedString];
+  [displayField setFont: font];
   [displayField becomeFirstResponder];
+  [displayField selectText: nil];
 }
 
 @end

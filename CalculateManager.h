@@ -26,6 +26,9 @@
 #include "Calculator.h"
 
 #define NUM_START_POINT 48
+#define DISPLAY_WIDTH_OFFSET 18
+#define MIN_FONT_SIZE 10
+#define MAX_FONT_SIZE 100
 
 @interface CalculateManager : NSObject <NSTextFieldDelegate>
 {
