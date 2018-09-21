@@ -121,6 +121,8 @@
       case '*':
         [calc activateButton: CalculatorButtonTimes];
         break;
+      case '.':
+        [calc activateButton: CalculatorButtonPoint];
     }
   }
   [displayField setStringValue: [val substringToIndex: [val length] - 1]];
