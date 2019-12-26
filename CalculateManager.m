@@ -51,6 +51,7 @@
 
 - (void) deinit
 {
+
   [calc release];
   [stringAttributes release];
   [numberFormatter release];
@@ -71,6 +72,11 @@
   CalculatorButton button = [sender tag];
   [calc activateButton: button];
   [self updateDisplayField];
+}
+
+-(void)windowWillClose: (NSNotification*)aNotification
+{
+  [NSApp terminate: self];
 }
 
 

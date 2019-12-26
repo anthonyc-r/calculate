@@ -13,10 +13,10 @@ include $(GNUSTEP_MAKEFILES)/common.make
 #
 # Application
 #
-VERSION = 0.1
+VERSION = 1.0
 PACKAGE_NAME = Calculate
 APP_NAME = Calculate
-Calculate_APPLICATION_ICON = Calculate.tiff
+Calculate_APPLICATION_ICON = 
 
 
 #
@@ -24,7 +24,6 @@ Calculate_APPLICATION_ICON = Calculate.tiff
 #
 Calculate_RESOURCE_FILES = \
 Resources/Calculate.gorm \
-Resources/Calculate.tiff
 
 
 #
