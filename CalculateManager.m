@@ -59,6 +59,7 @@
 - (void) awakeFromNib
 {
   [displayField setDelegate: self];
+  NSLog(@"window: %@", window);
 }
 
 - (void) didPressButton: (id)sender

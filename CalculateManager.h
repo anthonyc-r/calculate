@@ -33,6 +33,7 @@
 @interface CalculateManager : NSObject <NSTextFieldDelegate>
 {
   id displayField;
+  id window;
   Calculator* calc;
   NSDictionary *stringAttributes;
   NSNumberFormatter *numberFormatter;

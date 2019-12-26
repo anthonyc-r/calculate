@@ -13,7 +13,8 @@
 	    "didPressButton:"
 	);
 	Outlets = (
-	    displayField
+	    displayField,
+	    window
 	);
 	Super = NSObject;
     };
